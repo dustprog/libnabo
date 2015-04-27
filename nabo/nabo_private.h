@@ -47,6 +47,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	#include "CL/cl.hpp"
 #endif // HAVE_OPENCL
 
+// CUDA
+#ifdef HAVE_CUDA
+	#include <cuda.h>
+	#include <cuda_runtime.h>
+	#include <cuda_device_runtime_api.h>
+#endif
+
 // Unused macro, add support for your favorite compiler
 #if defined(__GNUC__)
 	#define _UNUSED __attribute__ ((unused))
@@ -418,6 +425,40 @@ namespace Nabo
 	};
 	
 	#endif // HAVE_OPENCL
+	
+	#ifdef HAVE_CUDA
+	
+	template<typename T>
+	struct CUDASearch: public NearestNeighbourSearch<T>
+	{
+		typedef typename NearestNeighbourSearch<T>::Vector Vector;
+		typedef typename NearestNeighbourSearch<T>::Matrix Matrix;
+		typedef typename NearestNeighbourSearch<T>::Index Index;
+		typedef typename NearestNeighbourSearch<T>::IndexVector IndexVector;
+		typedef typename NearestNeighbourSearch<T>::IndexMatrix IndexMatrix;
+		
+		using NearestNeighbourSearch<T>::dim;
+		using NearestNeighbourSearch<T>::cloud;
+		using NearestNeighbourSearch<T>::creationOptionFlags;
+		using NearestNeighbourSearch<T>::checkSizesKnn;
+		
+	protected:
+		
+		//! constructor, calls NearestNeighbourSearch<T>(cloud)
+		CUDASearch(const Matrix& cloud, const Index dim, const unsigned creationOptionFlags);
+		
+		// Need InitCUDA support
+		
+		
+	public:
+		
+		virtual unsigned long knn(const Matrix& query, IndexMatrix& indices, Matrix& dists2, const Index k, const T epsilon, const unsigned optionFlags, const T maxRadius) const
+		{
+		    return 0;
+		}
+	};
+	
+	#endif // HAVE_CUDA
 	
 	//@}
 }

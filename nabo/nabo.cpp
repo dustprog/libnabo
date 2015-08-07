@@ -131,6 +131,11 @@ namespace Nabo
 			case KDTREE_CL_PT_IN_LEAVES: throw runtime_error("OpenCL not found during compilation");
 			case BRUTE_FORCE_CL: throw runtime_error("OpenCL not found during compilation");
 			#endif // HAVE_OPENCL
+			#ifdef HAVE_CUDA
+			case KDTREE_CUDA_CLUSTERED: throw runtime_error("Need to finish CUDA support class");
+			#else // HAVE_CUDA
+			case KDTREE_CUDA_CLUSTERED: throw runtime_error("CUDA not found during compilation");
+			#endif
 			default: throw runtime_error("Unknown search type");
 		}
 	}

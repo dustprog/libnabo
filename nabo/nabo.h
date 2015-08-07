@@ -275,6 +275,7 @@ namespace Nabo
 			KDTREE_CL_PT_IN_NODES, //!< kd-tree using openCL, pt in nodes, only available if OpenCL enabled, UNSTABLE API
 			KDTREE_CL_PT_IN_LEAVES, //!< kd-tree using openCL, pt in leaves, only available if OpenCL enabled, UNSTABLE API
 			BRUTE_FORCE_CL, //!< brute-force using openCL, only available if OpenCL enabled, UNSTABLE API
+			KDTREE_CUDA_CLUSTERED, //!< cuda clustered search using recursive warp search
 			SEARCH_TYPE_COUNT //!< number of search types
 		};
 		
